@@ -1,0 +1,10 @@
+{
+  "programs": {
+    "lsdProgramId": "8ufkkVBM6s52WRnhdF2yUCu1eNPnS123SoVKv8wyBFAp",
+    "stakeManagerAccountAddress": "44agU7vrDhWnp7AEBKTBmzDYNKMASh7H2QFfwrgjbAbE",
+    "lsdTokenMint": "4KTgJEjxwsCvs8WDVtzMcj9Gpn8fDTohrTyCSPoVgXsc"
+  },
+  "explorer": "https://explorer.solana.com",
+  "restEndpoint": "https://solana-dev-rpc.stafi.io",
+  "wsEndpoint": "wss://solana-dev-wss.stafi.io"
+}
