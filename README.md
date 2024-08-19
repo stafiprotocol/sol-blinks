@@ -32,7 +32,7 @@ yarn dev
 
 Dialect only supports `Mainnet` and `Devnet`, so the transaction will be timed out shown on the page, but it actually **succeeded**.
 
-You can view the transaction status on (Solana Explorer)[https://explorer.solana.com], remember to set the custom RPC to `https://solana-dev-rpc.stafi.i0`.
+You can view the transaction status on [Solana Explorer](https://explorer.solana.com), remember to set the custom RPC to `https://solana-dev-rpc.stafi.i0`.
 
 ## References
 
