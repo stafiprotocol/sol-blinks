@@ -6,5 +6,6 @@
   },
   "explorer": "https://explorer.solana.com",
   "restEndpoint": "https://solana-dev-rpc.stafi.io",
-  "wsEndpoint": "wss://solana-dev-wss.stafi.io"
+  "wsEndpoint": "wss://solana-dev-wss.stafi.io",
+  "port": 9876
 }

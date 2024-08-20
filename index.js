@@ -8,7 +8,7 @@ import {
 } from '@solana/web3.js';
 import { createPostResponse, actionCorsMiddleware } from '@solana/actions';
 import { IDL } from './config/idl/lsd_program.js';
-import { solanaPrograms, solanaRestEndpoint } from './config/index.js';
+import { solanaPrograms, solanaRestEndpoint, PORT } from './config/index.js';
 import { getSplTokenAccount } from './utils/solanaUtils.js';
 import anchorPkg, { Wallet } from '@coral-xyz/anchor';
 import {
@@ -16,13 +16,12 @@ import {
   getAssociatedTokenAddress,
   TOKEN_PROGRAM_ID,
 } from '@solana/spl-token';
+import { StakeActions } from './config/actions.js';
 
 const { BN, Program, AnchorProvider } = anchorPkg;
 
 const DEFAULT_SOL_ADDRESS = Keypair.generate().publicKey;
 const DEFAULT_SOL_AMOUNT = 1;
-
-const PORT = 9876;
 
 // Express app setup
 const app = express();
@@ -50,37 +49,35 @@ async function getStakeSol(req, res) {
   try {
     const baseHref = `http://${req.headers.host}/api/actions/stake`;
 
+    const actions = [];
+    for (let action of StakeActions) {
+      if (action.customAmount) {
+        actions.push({
+          label: action.label,
+          href: `${baseHref}?amount={amount}`,
+          parameters: [
+            {
+              name: 'amount',
+              label: action.placeholder || 'Enter the amount of SOL to stake',
+              required: true,
+            },
+          ],
+        });
+      } else {
+        actions.push({
+          label: action.label,
+          href: `${baseHref}?amount=${action.amount}`,
+        });
+      }
+    }
+
     const payload = {
       title: 'Stake SOL to StaFi LSD',
       icon: 'https://solana-actions.vercel.app/solana_devs.jpg',
       description: 'Stake SOL to StaFi LSD',
       label: 'Stake',
       links: {
-        actions: [
-          {
-            label: 'Stake 1 SOL',
-            href: `${baseHref}?amount=1`,
-          },
-          {
-            label: 'Stake 5 SOL',
-            href: `${baseHref}?amount=5`,
-          },
-          {
-            label: 'Stake 10 SOL',
-            href: `${baseHref}?amount=10`,
-          },
-          {
-            label: 'Stake SOL',
-            href: `${baseHref}?amount={amount}`,
-            parameters: [
-              {
-                name: 'amount',
-                label: 'Enter the amount of SOL to stake',
-                required: true,
-              },
-            ],
-          },
-        ],
+        actions,
       },
     };
 
